@@ -114,6 +114,9 @@ importers:
       prettier:
         specifier: ^3.5.3
         version: 3.5.3
+      tailwindcss-primeui:
+        specifier: ^0.5.1
+        version: 0.5.1(tailwindcss@4.0.15)
       typescript:
         specifier: ~5.7.2
         version: 5.7.3
@@ -4523,6 +4526,11 @@ packages:
   synckit@0.9.2:
     resolution: {integrity: sha512-vrozgXDQwYO72vHjUb/HnFbQx1exDjoKzqx23aXEg2a9VIg2TSFZ8FmeZpTjUCFMYw7mpX4BE2SFu8wI7asYsw==}
     engines: {node: ^14.18.0 || >=16.0.0}
+
+  tailwindcss-primeui@0.5.1:
+    resolution: {integrity: sha512-zNqp62N4c+pwBVkVJd8ByvujepVKAMxZBdYy5MzIDi/Zb2p8wTGo4RrQaqLQazm3teOWVmttzZYPH/GlOB3lgw==}
+    peerDependencies:
+      tailwindcss: '>=3.1.0'
 
   tailwindcss@4.0.15:
     resolution: {integrity: sha512-6ZMg+hHdMJpjpeCCFasX7K+U615U9D+7k5/cDK/iRwl6GptF24+I/AbKgOnXhVKePzrEyIXutLv36n4cRsq3Sg==}
@@ -9711,6 +9719,10 @@ snapshots:
     dependencies:
       '@pkgr/core': 0.1.2
       tslib: 2.8.1
+
+  tailwindcss-primeui@0.5.1(tailwindcss@4.0.15):
+    dependencies:
+      tailwindcss: 4.0.15
 
   tailwindcss@4.0.15: {}
 
