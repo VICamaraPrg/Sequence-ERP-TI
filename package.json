@@ -27,6 +27,7 @@
     "@angular/platform-browser-dynamic": "^19.2.0",
     "@angular/router": "^19.2.0",
     "@ngrx/signals": "^19.0.1",
+    "@ngx-translate/core": "^16.0.4",
     "@primeng/themes": "^19.0.10",
     "@tailwindcss/postcss": "^4.0.15",
     "postcss": "^8.5.3",
