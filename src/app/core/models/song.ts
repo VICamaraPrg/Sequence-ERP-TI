@@ -3,6 +3,7 @@ export interface Song {
   title: string;
   poster: string;
   genre: string[];
+  country: string;
   year: number;
   duration: number;
   rating: number;

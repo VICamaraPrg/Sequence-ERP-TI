@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Song } from '../core/models/song';
-import { SafeAny } from '../core/types/safe-any';
 
 @Injectable({
   providedIn: 'root',
