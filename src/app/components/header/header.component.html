@@ -1,0 +1,51 @@
+<div class="card flex justify-center relative">
+  <p-drawer [(visible)]="visible">
+    <ng-template #header>
+      <div class="flex items-center gap-2">
+        <h2>Menu</h2>
+      </div>
+    </ng-template>
+    <div class="flex flex-col gap-2">
+      <div class="flex justify-end">
+        <a
+          routerLink="/songs"
+          routerLinkActive="active"
+          class="flex items-center justify-between w-full max-w-xs"
+        >
+          <span>Canciones</span>
+          <i class="pi pi-arrow-right"></i>
+        </a>
+      </div>
+      <div class="flex justify-end">
+        <a
+          routerLink="/albums"
+          class="flex items-center justify-between w-full max-w-xs"
+        >
+          <span>Álbums</span>
+          <i class="pi pi-arrow-right"></i>
+        </a>
+      </div>
+      <div class="flex justify-end">
+        <a
+          routerLink="/companies"
+          class="flex items-center justify-between w-full max-w-xs"
+        >
+          <span>Discográficas</span>
+          <i class="pi pi-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </p-drawer>
+
+  <div class="w-full flex justify-start items-center">
+    <div class="ml-1 mt-1">
+      <p-button
+        variant="text"
+        (click)="visible = true"
+        icon="pi pi-bars"
+      ></p-button>
+    </div>
+  </div>
+</div>
+
+<p-divider type="solid" />
