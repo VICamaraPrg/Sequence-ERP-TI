@@ -2,7 +2,7 @@
   <p-drawer [(visible)]="visible">
     <ng-template #header>
       <div class="flex items-center gap-2">
-        <h2>Menu</h2>
+        <h2>{{ 'header.hamburger.title' | translate }}</h2>
       </div>
     </ng-template>
     <nav class="flex flex-col gap-2">
@@ -12,7 +12,7 @@
           routerLinkActive="active"
           class="flex items-center justify-between w-full max-w-xs"
         >
-          <span>Canciones</span>
+          <span>{{ 'header.hamburger.nav.songs' | translate }}</span>
           <i class="pi pi-arrow-right"></i>
         </a>
       </div>
@@ -21,7 +21,7 @@
           routerLink="/artists"
           class="flex items-center justify-between w-full max-w-xs"
         >
-          <span>Álbums</span>
+          <span>{{ 'header.hamburger.nav.albums' | translate }}</span>
           <i class="pi pi-arrow-right"></i>
         </a>
       </div>
@@ -30,7 +30,7 @@
           routerLink="/companies"
           class="flex items-center justify-between w-full max-w-xs"
         >
-          <span>Discográficas</span>
+          <span>{{ 'header.hamburger.nav.companies' | translate }}</span>
           <i class="pi pi-arrow-right"></i>
         </a>
       </div>
