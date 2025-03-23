@@ -2,6 +2,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Song, SongPayload } from '../core/models/song';
+import { SafeAny } from '../core/types/safe-any';
 
 @Injectable({
   providedIn: 'root',
@@ -24,6 +25,12 @@ export class SongService {
 
   updateSong(song: SongPayload): Observable<HttpResponse<Song>> {
     return this.http.patch<Song>(`/api/songs/${song.id}`, song, {
+      observe: 'response',
+    });
+  }
+
+  deleteSong(songId: string): Observable<HttpResponse<SafeAny>> {
+    return this.http.delete(`/api/songs/${songId}`, {
       observe: 'response',
     });
   }

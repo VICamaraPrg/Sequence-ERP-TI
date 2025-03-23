@@ -13,7 +13,6 @@ import { GenreForSelect } from '../core/models/genre';
 import { Song, SongPayload } from '../core/models/song';
 import { SongService } from '../services/song.service';
 import { ArtistStore } from './artist.store';
-import { CompanyStore } from './company.store';
 
 interface ISongStore {
   songs: Song[];
@@ -37,7 +36,6 @@ export const SongStore = signalStore(
       store,
       songService = inject(SongService),
       artistStore = inject(ArtistStore),
-      companyStore = inject(CompanyStore),
     ) => ({
       async findAllSongs() {
         patchState(store, { loading: true });
@@ -117,6 +115,21 @@ export const SongStore = signalStore(
         }));
 
         return updatedSong.status;
+      },
+
+      async deleteSong(songId: string): Promise<number> {
+        patchState(store, { loading: true });
+
+        const deletedSong = await lastValueFrom(
+          songService.deleteSong(songId).pipe(delay(250)),
+        );
+
+        patchState(store, (state) => ({
+          songs: state.songs.filter((song) => String(song.id) !== songId),
+          loading: false,
+        }));
+
+        return deletedSong.status;
       },
 
       setLoadingState(loading: boolean) {
