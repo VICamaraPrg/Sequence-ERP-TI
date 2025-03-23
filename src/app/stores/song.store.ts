@@ -77,8 +77,6 @@ export const SongStore = signalStore(
           store.songs().map((song: Song) => song.country),
         );
 
-        console.log(uniqueCountries);
-
         return Array.from(uniqueCountries).map((country: string) => ({
           country,
           id: country.substring(0, 2),

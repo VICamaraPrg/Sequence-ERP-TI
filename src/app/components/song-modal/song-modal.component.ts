@@ -88,8 +88,6 @@ export class SongModalComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    console.log(this.translate.getLangs());
-
     // Will only populate the form if the modal is for editing a song
     if (this.$editMode()) this.parseAndPopulateSongModalStateFromToEdit();
   }
@@ -102,7 +100,6 @@ export class SongModalComponent implements OnInit {
     if (!this.songModalState.valid) return;
 
     const payload = this.mapToPayload();
-    console.log(payload);
 
     try {
       if (this.$editMode()) {
@@ -211,10 +208,6 @@ export class SongModalComponent implements OnInit {
   }
 
   private parseAndPopulateSongModalStateFromToEdit() {
-    console.log(
-      this.companyStore.getCompanyBySongId(this.modalConfig.data.songToEdit.id),
-    );
-
     this.songModalState.patchValue({
       ...this.modalConfig.data.songToEdit,
 
