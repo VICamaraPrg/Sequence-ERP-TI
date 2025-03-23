@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Song } from '../core/models/song';
+import { Song, SongPayload } from '../core/models/song';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +16,15 @@ export class SongService {
     return this.http.get<Song[]>(`/api/songs`);
   }
 
-  saveSong(song: Song): Observable<Song> {
-    return this.http.post<Song>(`/api/songs`, song);
+  saveSong(song: SongPayload): Observable<HttpResponse<Song>> {
+    return this.http.post<Song>(`/api/songs`, song, {
+      observe: 'response',
+    });
+  }
+
+  updateSong(song: SongPayload): Observable<HttpResponse<Song>> {
+    return this.http.patch<Song>(`/api/songs/${song.id}`, song, {
+      observe: 'response',
+    });
   }
 }

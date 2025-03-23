@@ -7,10 +7,13 @@ import {
   withState,
 } from '@ngrx/signals';
 import { delay, lastValueFrom } from 'rxjs';
-import { Song } from '../core/models/song';
+import { Artist } from '../core/models/artist';
+import { CountryForSelect } from '../core/models/country';
+import { GenreForSelect } from '../core/models/genre';
+import { Song, SongPayload } from '../core/models/song';
 import { SongService } from '../services/song.service';
 import { ArtistStore } from './artist.store';
-import { Artist } from '../core/models/artist';
+import { CompanyStore } from './company.store';
 
 interface ISongStore {
   songs: Song[];
@@ -34,6 +37,7 @@ export const SongStore = signalStore(
       store,
       songService = inject(SongService),
       artistStore = inject(ArtistStore),
+      companyStore = inject(CompanyStore),
     ) => ({
       async findAllSongs() {
         patchState(store, { loading: true });
@@ -49,18 +53,74 @@ export const SongStore = signalStore(
       },
 
       getSongWithArtist(song: Song): string {
-        // Double equal is used because the origin data is a string.
+        // Double equal is used because the origin data is a string or could be a string.
         const artist = artistStore
           .artists()
-          .find((artist: Artist) => Number(artist.id) === song.artist);
+          .find((artist: Artist) => artist.id == song.artist);
 
         return `${song.title} (${artist?.name})`;
       },
 
-      async addSong(song: Song) {
+      // As we don't have a genre store, we can use this method to get all genres.
+      // Since all the genres are spread across all songs.
+      findAllGenresForSelect(): GenreForSelect[] {
+        const uniqueGenres = new Set<string>(
+          store.songs().flatMap((song: Song) => song.genre),
+        );
+
+        return Array.from(uniqueGenres).map((genre: string) => ({
+          genre,
+          id: genre.substring(0, 2),
+        }));
+      },
+
+      findAllCountriesForSelect(): CountryForSelect[] {
+        const uniqueCountries = new Set<string>(
+          store.songs().map((song: Song) => song.country),
+        );
+
+        return Array.from(uniqueCountries).map((country: string) => ({
+          country,
+          id: country.substring(0, 2),
+        }));
+      },
+
+      async addSong(song: SongPayload): Promise<number> {
         patchState(store, { loading: true });
 
-        await lastValueFrom(songService.saveSong(song).pipe(delay(1500)));
+        // I intentionally add a delay to simulate a real-world scenario.
+        const newSong = await lastValueFrom(
+          songService.saveSong(song).pipe(delay(250)),
+        );
+
+        patchState(store, (state) => ({
+          songs: [...state.songs, newSong.body as Song],
+          loading: false,
+        }));
+
+        return newSong.status;
+      },
+
+      async updateSong(song: SongPayload): Promise<number> {
+        patchState(store, { loading: true });
+
+        const updatedSong = await lastValueFrom(
+          songService.updateSong(song).pipe(delay(250)),
+        );
+
+        // Parsing both to string because json-server, whever it creates a new resource, it generates a random string.
+        patchState(store, (state) => ({
+          songs: state.songs.map((s) =>
+            String(s.id) === String(song.id) ? (updatedSong.body as Song) : s,
+          ),
+          loading: false,
+        }));
+
+        return updatedSong.status;
+      },
+
+      setLoadingState(loading: boolean) {
+        patchState(store, { loading });
       },
     }),
   ),
