@@ -42,6 +42,9 @@ export class SongListComponent {
         '960px': '75vw',
         '640px': '90vw',
       },
+      header: songToEdit
+        ? `Editando ${this.songStore.getSongWithArtist(songToEdit)}`
+        : 'Añadir canción',
       data: songToEdit ? { songToEdit } : undefined,
     });
   }
