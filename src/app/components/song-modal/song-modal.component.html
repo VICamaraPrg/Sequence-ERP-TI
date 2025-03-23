@@ -1,0 +1,211 @@
+<div class="p-4">
+  <form [formGroup]="songModalState" (ngSubmit)="onSubmit()">
+    <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
+      <p-iftalabel>
+        <input
+          pInputText
+          id="songTitle"
+          formControlName="title"
+          autocomplete="off"
+          placeholder="Indique el título de la canción"
+          class="w-full"
+        />
+        <label
+          for="songTitle"
+          class="block text-sm font-medium text-gray-700 whitespace-normal break-words"
+        >
+          Título
+        </label>
+        @if (
+          songModalState.get('title')?.errors?.['required'] &&
+          songModalState.get('title')?.invalid &&
+          songModalState.get('title')?.touched
+        ) {
+          <p-message
+            severity="error"
+            text="El título de la canción es requerido"
+            variant="simple"
+          ></p-message>
+        }
+      </p-iftalabel>
+
+      <p-iftalabel>
+        <p-select
+          id="artist"
+          formControlName="artist"
+          [options]="artists"
+          filter
+          display="chip"
+          optionLabel="artist"
+          styleClass="w-full"
+          appendTo="body"
+          placeholder="Indique el o los artistas"
+        />
+        <label
+          for="artist"
+          class="block text-sm font-medium text-gray-700 whitespace-normal break-words"
+        >
+          Artista
+        </label>
+        @if (
+          songModalState.get('artist')?.errors?.['required'] &&
+          songModalState.get('artist')?.invalid &&
+          songModalState.get('artist')?.touched
+        ) {
+          <p-message
+            severity="error"
+            text="Seleccione al menos 1 opción"
+            variant="simple"
+          ></p-message>
+        }
+      </p-iftalabel>
+
+      <p-iftalabel>
+        <p-multiselect
+          formControlName="genre"
+          id="genres"
+          [options]="genres"
+          optionLabel="genre"
+          styleClass="w-full"
+          display="chip"
+          [filter]="true"
+          size="small"
+          placeholder="Seleccione uno o varios géneros"
+          appendTo="body"
+        />
+        <label for="genres">Géneros</label>
+        @if (
+          songModalState.get('genre')?.errors?.['required'] &&
+          songModalState.get('genre')?.invalid &&
+          songModalState.get('genre')?.touched
+        ) {
+          <p-message
+            severity="error"
+            text="Seleccione al menos 1 opción"
+            variant="simple"
+          ></p-message>
+        }
+      </p-iftalabel>
+
+      <p-iftalabel>
+        <p-select
+          id="company"
+          formControlName="company"
+          [options]="companies"
+          placeholder="Seleccione una discográfica"
+          filter
+          styleClass="w-full"
+          optionLabel="company"
+          appendTo="body"
+        />
+        <label for="company">Discográfica</label>
+        @if (
+          songModalState.get('company')?.errors?.['required'] &&
+          songModalState.get('company')?.invalid &&
+          songModalState.get('company')?.touched
+        ) {
+          <p-message
+            severity="error"
+            text="Seleccione al menos 1 opción"
+            variant="simple"
+          ></p-message>
+        }
+      </p-iftalabel>
+
+      <p-iftalabel>
+        <p-select
+          id="country"
+          formControlName="country"
+          [options]="countries"
+          filter
+          placeholder="Seleccione la nacionalidad de la canción"
+          optionLabel="country"
+          styleClass="w-full"
+          appendTo="body"
+        />
+        <label for="country">País</label>
+        @if (
+          songModalState.get('country')?.errors?.['required'] &&
+          songModalState.get('country')?.invalid &&
+          songModalState.get('country')?.touched
+        ) {
+          <p-message
+            severity="error"
+            text="Seleccione al menos 1 opción"
+            variant="simple"
+          ></p-message>
+        }
+      </p-iftalabel>
+
+      <p-iftalabel>
+        <p-datepicker
+          formControlName="year"
+          inputId="year"
+          showIcon
+          iconDisplay="input"
+          view="year"
+          dateFormat="yy"
+          placeholder="Indique el año"
+          styleClass="w-full"
+          appendTo="body"
+        />
+        <label for="year">Año</label>
+        @if (
+          songModalState.get('year')?.errors?.['required'] &&
+          songModalState.get('year')?.invalid &&
+          songModalState.get('year')?.touched
+        ) {
+          <p-message
+            severity="error"
+            text="Seleccione un año"
+            variant="simple"
+          ></p-message>
+        }
+      </p-iftalabel>
+
+      <p-iftalabel>
+        <p-inputnumber
+          styleClass="w-full"
+          formControlName="rating"
+          inputId="locale-user"
+          [maxFractionDigits]="2"
+          [maxlength]="4"
+          [min]="0"
+          [max]="10"
+          id="rating"
+          placeholder="Indique el ratingdique el ratingdique el ratingdique el ratingdique el rating"
+        />
+        <label for="rating">Puntuación</label>
+        @if (
+          songModalState.get('rating')?.errors?.['required'] &&
+          songModalState.get('rating')?.invalid &&
+          songModalState.get('rating')?.touched
+        ) {
+          <p-message
+            severity="error"
+            text="Introduzca una puntiación válida"
+            variant="simple"
+          ></p-message>
+        }
+      </p-iftalabel>
+    </div>
+    <div class="mt-6 flex justify-end gap-2">
+      @if ($editMode()) {
+        <p-button
+          label="Eliminar"
+          icon="pi pi-trash"
+          severity="danger"
+          [outlined]="true"
+          (click)="onDelete($event)"
+        />
+      }
+      <p-button
+        type="submit"
+        [label]="$editMode() ? 'Actualizar' : 'Crear'"
+        [icon]="$editMode() ? 'pi pi-save' : 'pi pi-plus'"
+        [disabled]="songModalState.invalid"
+      />
+    </div>
+  </form>
+</div>
+<p-confirmpopup />

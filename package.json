@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "concurrently \"ng serve\" \"json-server --watch ./src/assets/db.json\"",
+    "start": "concurrently \"ng serve --proxy-config src/proxy.conf.json\" \"json-server --watch ./src/assets/db.json\"",
+    "dev": "ng serve --proxy-config src/proxy.conf.json",
+    "api": "json-server --watch ./src/assets/db.json",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
