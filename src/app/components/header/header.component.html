@@ -1,9 +1,9 @@
 <div class="card relative px-4 py-2">
-  <div class="flex items-center justify-between">
+  <div class="flex items-center justify-between gap-4">
     <div class="flex items-center">
       <p-button
         variant="text"
-        (click)="drawerVisible = true"
+        (click)="$drawerVisible.set(true)"
         icon="pi pi-bars"
       ></p-button>
     </div>
@@ -12,18 +12,31 @@
       <h1 class="text-xl font-bold">{{ 'header.title' | translate }}</h1>
     </div>
 
-    <div class="flex items-center">
-      <p-select
-        (onChange)="changeLanguage($event)"
-        [options]="languages"
-        [(ngModel)]="currentLanguage"
-        optionLabel="label"
-        optionValue="value"
+    <div class="hidden sm:block">
+      <div class="flex items-center">
+        <p-select
+          (onChange)="changeLanguage($event.value)"
+          [options]="$languages()"
+          [(ngModel)]="$currentLanguage"
+          optionLabel="label"
+          optionValue="value"
+        >
+          <ng-template #dropdownicon>
+            <i class="pi pi-language"></i>
+          </ng-template>
+        </p-select>
+      </div>
+    </div>
+
+    <div class="sm:hidden">
+      <p-button
+        icon="pi pi-language"
+        (click)="$languageDialogVisible.set(true)"
       />
     </div>
   </div>
 
-  <p-drawer [(visible)]="drawerVisible">
+  <p-drawer [(visible)]="$drawerVisible">
     <ng-template #header>
       <div class="flex items-center gap-2">
         <h2>{{ 'header.hamburger.title' | translate }}</h2>
@@ -63,3 +76,23 @@
 </div>
 
 <p-divider type="solid" />
+
+<p-dialog
+  [header]="'header.selectLanguage' | translate"
+  [(visible)]="$languageDialogVisible"
+  [modal]="true"
+  [closable]="true"
+  [style]="{ width: '300px' }"
+>
+  <div class="p-fluid">
+    <p-select
+      [(ngModel)]="$currentLanguage"
+      [options]="$languages()"
+      appendTo="body"
+      optionLabel="label"
+      optionValue="value"
+      styleClass="w-full"
+      (onChange)="changeLanguage($event.value)"
+    ></p-select>
+  </div>
+</p-dialog>

@@ -4,6 +4,13 @@
   },
   "header": {
     "title": "Mi colección de canciones",
+    "selectLanguage": "Seleccionar idioma",
+    "language": {
+      "en": "Inglés",
+      "es": "Español",
+      "fr": "Francés",
+      "de": "Alemán"
+    },
     "hamburger": {
       "title": "Menú",
       "nav": {

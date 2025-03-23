@@ -4,6 +4,13 @@
   },
   "header": {
     "title": "My song collection",
+    "selectLanguage": "Select language",
+    "language": {
+      "en": "English",
+      "es": "Spanish",
+      "fr": "French",
+      "de": "German"
+    },
     "hamburger": {
       "title": "Menu",
       "nav": {

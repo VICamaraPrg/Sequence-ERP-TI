@@ -1,11 +1,12 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
 import { DividerModule } from 'primeng/divider';
 import { DrawerModule } from 'primeng/drawer';
-import { SelectChangeEvent, SelectModule } from 'primeng/select';
+import { SelectModule } from 'primeng/select';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { TooltipModule } from 'primeng/tooltip';
 import { LanguageOption } from '../../core/models/language-option';
@@ -20,6 +21,7 @@ import { LanguageOption } from '../../core/models/language-option';
     TooltipModule,
     SelectModule,
     SelectButtonModule,
+    DialogModule,
     FormsModule,
     TranslatePipe,
   ],
@@ -28,21 +30,24 @@ import { LanguageOption } from '../../core/models/language-option';
 export class HeaderComponent {
   private readonly translate = inject(TranslateService);
 
-  drawerVisible = false;
-
-  languages: LanguageOption[] = this.buildLanguageOptions();
-  currentLanguage =
-    this.languages.find(
+  $drawerVisible = signal<boolean>(false);
+  $languageDialogVisible = signal<boolean>(false);
+  $languages = signal<LanguageOption[]>(this.buildLanguageOptions());
+  $currentLanguage = signal<string>(
+    this.$languages().find(
       (language) => language.value === this.translate.getBrowserLang(),
-    )?.value || 'en';
+    )?.value || 'en',
+  );
 
   constructor() {
-    this.translate.use(this.currentLanguage);
+    this.translate.use(this.$currentLanguage());
   }
 
-  protected changeLanguage(language: SelectChangeEvent): void {
-    this.translate.use(language.value);
-    this.currentLanguage = language.value;
+  protected changeLanguage(lang: string): void {
+    this.$currentLanguage.set(lang);
+    this.translate.use(lang);
+
+    if (this.$languageDialogVisible()) this.$languageDialogVisible.set(false);
   }
 
   private buildLanguageOptions(): LanguageOption[] {

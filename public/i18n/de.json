@@ -3,7 +3,12 @@
     "title": "Sequence-ERP Technisches Interview"
   },
   "header": {
-    "title": "Meine Songsammlung",
+    "language": {
+      "en": "Englisch",
+      "es": "Spanisch",
+      "fr": "Französisch",
+      "de": "Deutsch"
+    },
     "hamburger": {
       "title": "Menü",
       "nav": {
@@ -11,7 +16,9 @@
         "albums": "Alben",
         "companies": "Unternehmen"
       }
-    }
+    },
+    "title": "Meine Songsammlung",
+    "selectLanguage": "Sprache auswählen"
   },
   "songList": {
     "currentEdit": "Derzeit bearbeitet: {{songTitle}}",
