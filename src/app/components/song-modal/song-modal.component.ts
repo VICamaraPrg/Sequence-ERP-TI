@@ -13,15 +13,18 @@ import { InputTextModule } from 'primeng/inputtext';
 import { MessageModule } from 'primeng/message';
 import { MultiSelectModule } from 'primeng/multiselect';
 
+import { JsonPipe } from '@angular/common';
 import {
   NonNullableFormBuilder,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { SelectModule } from 'primeng/select';
 import { ArtistForSelect } from '../../core/models/artist';
+import { CompanyForSelect } from '../../core/models/company';
 import { CountryForSelect } from '../../core/models/country';
 import { GenreForSelect } from '../../core/models/genre';
 import { SongPayload } from '../../core/models/song';
@@ -29,8 +32,8 @@ import { SafeAny } from '../../core/types/safe-any';
 import { ArtistStore } from '../../stores/artist.store';
 import { CompanyStore } from '../../stores/company.store';
 import { SongStore } from '../../stores/song.store';
-import { JsonPipe } from '@angular/common';
-import { CompanyForSelect } from '../../core/models/company';
+import { ToastModule } from 'primeng/toast';
+import { Crud } from '../../core/types/crud';
 
 @Component({
   selector: 'app-song-modal',
@@ -44,6 +47,8 @@ import { CompanyForSelect } from '../../core/models/company';
     ButtonModule,
     InputNumberModule,
     MessageModule,
+    ConfirmPopupModule,
+    ToastModule,
     JsonPipe,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -57,6 +62,7 @@ export class SongModalComponent implements OnInit {
   private readonly modalConfig = inject(DynamicDialogConfig);
   private readonly modalRef = inject(DynamicDialogRef);
   private readonly messageService = inject(MessageService);
+  private readonly confirmationService = inject(ConfirmationService);
 
   private readonly fb: NonNullableFormBuilder = inject(NonNullableFormBuilder);
 
@@ -96,11 +102,11 @@ export class SongModalComponent implements OnInit {
     try {
       if (this.$editMode()) {
         const responseCode = await this.songStore.updateSong(payload);
-        this.handleUpdateResponse(responseCode);
+        this.handleResponse(responseCode, 'update');
         return;
       }
       const responseCode = await this.songStore.addSong(payload);
-      this.handleCreateResponse(responseCode);
+      this.handleResponse(responseCode, 'create');
     } catch (error) {
       console.error(error);
 
@@ -114,30 +120,60 @@ export class SongModalComponent implements OnInit {
     }
   }
 
-  private handleCreateResponse(responseCode: number): void {
-    if (responseCode === 201) {
-      this.modalRef.close();
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Éxito',
-        detail: 'La canción se añadió correctamente',
-      });
-    } else {
-      this.messageService.add({
-        severity: 'warn',
-        summary: 'Advertencia',
-        detail: 'Código de respuesta: ' + responseCode,
-      });
-    }
+  protected async onDelete(event: Event): Promise<void> {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: '¿Quieres borrar esta canción?',
+      icon: 'pi pi-exclamation-triangle',
+      rejectButtonProps: {
+        label: 'Cancelar',
+        severity: 'secondary',
+        outlined: true,
+      },
+      acceptButtonProps: {
+        label: 'Eliminar',
+        severity: 'danger',
+      },
+      accept: async () => {
+        const responseStatus = await this.songStore.deleteSong(
+          this.modalConfig.data.songToEdit.id,
+        );
+
+        this.handleResponse(responseStatus, 'delete');
+      },
+    });
   }
 
-  private handleUpdateResponse(responseCode: number): void {
-    if (responseCode === 200) {
+  private handleResponse(responseCode: number, type: Crud): void {
+    let expectedCode = 0;
+    let successSummary = '';
+    let successDetail = '';
+
+    switch (type) {
+      case 'create':
+        expectedCode = 201;
+        successSummary = 'Éxito';
+        successDetail = 'La canción se añadió correctamente';
+        break;
+      case 'update':
+        expectedCode = 200;
+        successSummary = 'Actualización exitosa';
+        successDetail = 'La canción se actualizó correctamente';
+        break;
+      case 'delete':
+        expectedCode = 200;
+        successSummary = 'Eliminar canción';
+        successDetail = 'Canción eliminada correctamente';
+        break;
+    }
+
+    if (responseCode === expectedCode) {
       this.modalRef.close();
       this.messageService.add({
         severity: 'success',
-        summary: 'Actualización exitosa',
-        detail: 'La canción se actualizó correctamente',
+        summary: successSummary,
+        detail: successDetail,
+        life: 3000,
       });
     } else {
       this.messageService.add({
