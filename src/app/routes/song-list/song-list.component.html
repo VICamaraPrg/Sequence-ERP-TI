@@ -18,10 +18,18 @@
       </div>
     }
   } @else {
-    @for (song of songStore.songs(); track $index) {
-      <div class="flex" (click)="showModal(song)">
-        <app-song-card [song]="song" class="w-full" />
+    @if (songStore.songs().length === 0) {
+      <div class="flex justify-center items-center h-full col-span-full py-8">
+        <p class="text-xl text-gray-400">
+          {{ 'songList.noSongs' | translate }}
+        </p>
       </div>
+    } @else {
+      @for (song of songStore.songs(); track $index) {
+        <div class="flex" (click)="showModal(song)">
+          <app-song-card [song]="song" class="w-full" />
+        </div>
+      }
     }
   }
 </div>

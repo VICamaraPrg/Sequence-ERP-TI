@@ -16,7 +16,7 @@
   "songList": {
     "currentEdit": "En train d'éditer : {{songTitle}}",
     "createSong": "Créer une chanson",
-    "noSongs": "Aucune chanson trouvée"
+    "noSongs": "Aucune chanson trouvée, il est peut-être temps d'en ajouter!"
   },
   "songModal": {
     "title": "Détails de la chanson",
