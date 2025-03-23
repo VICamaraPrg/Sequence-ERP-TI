@@ -35,11 +35,9 @@ export const CompanyStore = signalStore(
         companies,
         loading: false,
       });
-
-      console.log(store.companies());
     },
 
-    setSongToCompany(songId: number, companyId: string) {
+    setSongToCompany(songId: string, companyId: string) {
       const updatedCompanies = store.companies().map((company: Company) => {
         if (company.id === companyId) {
           return {
@@ -56,7 +54,7 @@ export const CompanyStore = signalStore(
     getCompanyBySongId(songId: string): CompanyForSelect | undefined {
       const foundCompany = store
         .companies()
-        .find((company: Company) => company.songs.includes(Number(songId)));
+        .find((company: Company) => company.songs.includes(songId));
 
       return foundCompany
         ? {
