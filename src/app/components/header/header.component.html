@@ -1,5 +1,29 @@
-<div class="card flex justify-center relative">
-  <p-drawer [(visible)]="visible">
+<div class="card relative px-4 py-2">
+  <div class="flex items-center justify-between">
+    <div class="flex items-center">
+      <p-button
+        variant="text"
+        (click)="drawerVisible = true"
+        icon="pi pi-bars"
+      ></p-button>
+    </div>
+
+    <div class="flex-grow text-center">
+      <h1 class="text-xl font-bold">{{ 'header.title' | translate }}</h1>
+    </div>
+
+    <div class="flex items-center">
+      <p-select
+        (onChange)="changeLanguage($event)"
+        [options]="languages"
+        [(ngModel)]="currentLanguage"
+        optionLabel="label"
+        optionValue="value"
+      />
+    </div>
+  </div>
+
+  <p-drawer [(visible)]="drawerVisible">
     <ng-template #header>
       <div class="flex items-center gap-2">
         <h2>{{ 'header.hamburger.title' | translate }}</h2>
@@ -36,20 +60,6 @@
       </div>
     </nav>
   </p-drawer>
-
-  <div class="absolute inset-x-0 top-0 flex justify-center items-center pt-2">
-    <h1 class="text-xl font-bold">Mi colección de música</h1>
-  </div>
-
-  <div class="w-full flex justify-between items-center">
-    <div class="ml-1 mt-1">
-      <p-button
-        variant="text"
-        (click)="visible = true"
-        icon="pi pi-bars"
-      ></p-button>
-    </div>
-  </div>
 </div>
 
 <p-divider type="solid" />

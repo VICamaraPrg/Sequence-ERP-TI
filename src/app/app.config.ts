@@ -26,6 +26,7 @@ export const appConfig: ApplicationConfig = {
       },
     }),
     provideTranslateService({
+      useDefaultLang: true,
       loader: {
         provide: TranslateLoader,
         useFactory: httpLoaderFactory,
