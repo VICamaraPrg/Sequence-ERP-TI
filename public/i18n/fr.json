@@ -1,0 +1,82 @@
+{
+  "app": {
+    "title": "Entretien technique Sequence-ERP"
+  },
+  "header": {
+    "title": "Ma collection de chansons",
+    "hamburger": {
+      "title": "Menu",
+      "nav": {
+        "songs": "Chansons",
+        "albums": "Albums",
+        "companies": "Entreprises"
+      }
+    }
+  },
+  "songList": {
+    "currentEdit": "En train d'éditer : {{songTitle}}",
+    "createSong": "Créer une chanson",
+    "noSongs": "Aucune chanson trouvée"
+  },
+  "songModal": {
+    "title": "Détails de la chanson",
+    "form": {
+      "placeholder": {
+        "title": "Entrez le titre de la chanson",
+        "artist": "Sélectionnez un artiste",
+        "genre": "Sélectionnez 1 ou plusieurs genres",
+        "company": "Sélectionnez une entreprise",
+        "country": "Sélectionnez un pays",
+        "releaseYear": "Sélectionnez une année de sortie",
+        "rating": "Entrez une note"
+      },
+      "label": {
+        "title": "Titre",
+        "artist": "Artiste",
+        "genre": "Genres",
+        "company": "Entreprise",
+        "country": "Pays",
+        "releaseYear": "Année de sortie",
+        "rating": "Note"
+      },
+      "error": {
+        "title": "Veuillez entrer un titre de chanson",
+        "artist": "Veuillez sélectionner un artiste",
+        "genre": "Veuillez sélectionner au moins 1 genre",
+        "company": "Veuillez sélectionner une entreprise",
+        "country": "Veuillez sélectionner un pays",
+        "releaseYear": "Veuillez sélectionner une année de sortie",
+        "rating": "Veuillez entrer une note valide"
+      },
+      "action": {
+        "error": {
+          "create": "Échec de la création de la chanson",
+          "update": "Échec de la mise à jour de la chanson",
+          "delete": "Échec de la suppression de la chanson",
+          "unexpected": "Une erreur inattendue est survenue"
+        },
+        "success": {
+          "title": {
+            "create": "Création réussie",
+            "update": "Mise à jour réussie",
+            "delete": "Suppression réussie"
+          },
+          "message": {
+            "create": "La chanson a été créée avec succès",
+            "update": "La chanson a été mise à jour avec succès",
+            "delete": "La chanson a été supprimée avec succès"
+          }
+        },
+        "warning": {
+          "title": "Avertissement",
+          "responseCode": "Code de réponse : {{responseCode}}"
+        },
+        "create": "Créer",
+        "update": "Mettre à jour",
+        "delete": "Supprimer",
+        "cancel": "Annuler",
+        "confirmDelete": "Êtes-vous sûr de vouloir supprimer cette chanson ?"
+      }
+    }
+  }
+}

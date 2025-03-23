@@ -13,27 +13,27 @@ import { InputTextModule } from 'primeng/inputtext';
 import { MessageModule } from 'primeng/message';
 import { MultiSelectModule } from 'primeng/multiselect';
 
-import { JsonPipe } from '@angular/common';
 import {
   NonNullableFormBuilder,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { SelectModule } from 'primeng/select';
+import { ToastModule } from 'primeng/toast';
 import { ArtistForSelect } from '../../core/models/artist';
 import { CompanyForSelect } from '../../core/models/company';
 import { CountryForSelect } from '../../core/models/country';
 import { GenreForSelect } from '../../core/models/genre';
 import { SongPayload } from '../../core/models/song';
+import { Crud } from '../../core/types/crud';
 import { SafeAny } from '../../core/types/safe-any';
 import { ArtistStore } from '../../stores/artist.store';
 import { CompanyStore } from '../../stores/company.store';
 import { SongStore } from '../../stores/song.store';
-import { ToastModule } from 'primeng/toast';
-import { Crud } from '../../core/types/crud';
 
 @Component({
   selector: 'app-song-modal',
@@ -49,7 +49,7 @@ import { Crud } from '../../core/types/crud';
     MessageModule,
     ConfirmPopupModule,
     ToastModule,
-    JsonPipe,
+    TranslatePipe,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './song-modal.component.html',
@@ -63,6 +63,8 @@ export class SongModalComponent implements OnInit {
   private readonly modalRef = inject(DynamicDialogRef);
   private readonly messageService = inject(MessageService);
   private readonly confirmationService = inject(ConfirmationService);
+
+  private readonly translate = inject(TranslateService);
 
   private readonly fb: NonNullableFormBuilder = inject(NonNullableFormBuilder);
 
@@ -86,6 +88,8 @@ export class SongModalComponent implements OnInit {
   });
 
   ngOnInit(): void {
+    console.log(this.translate.getLangs());
+
     // Will only populate the form if the modal is for editing a song
     if (this.$editMode()) this.parseAndPopulateSongModalStateFromToEdit();
   }
@@ -115,7 +119,9 @@ export class SongModalComponent implements OnInit {
       this.messageService.add({
         severity: 'error',
         summary: 'Error',
-        detail: 'Ocurrió un error inesperado al añadir la canción',
+        detail: this.translate.instant(
+          'songModal.form.action.error.unexpected',
+        ),
       });
     }
   }
@@ -123,15 +129,15 @@ export class SongModalComponent implements OnInit {
   protected async onDelete(event: Event): Promise<void> {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
-      message: '¿Quieres borrar esta canción?',
+      message: this.translate.instant('songModal.form.action.confirmDelete'),
       icon: 'pi pi-exclamation-triangle',
       rejectButtonProps: {
-        label: 'Cancelar',
+        label: this.translate.instant('songModal.form.action.cancel'),
         severity: 'secondary',
         outlined: true,
       },
       acceptButtonProps: {
-        label: 'Eliminar',
+        label: this.translate.instant('songModal.form.action.delete'),
         severity: 'danger',
       },
       accept: async () => {
@@ -152,18 +158,30 @@ export class SongModalComponent implements OnInit {
     switch (type) {
       case 'create':
         expectedCode = 201;
-        successSummary = 'Éxito';
-        successDetail = 'La canción se añadió correctamente';
+        successSummary = this.translate.instant(
+          'songModal.form.action.success.title.create',
+        );
+        successDetail = this.translate.instant(
+          'songModal.form.action.success.message.create',
+        );
         break;
       case 'update':
         expectedCode = 200;
-        successSummary = 'Actualización exitosa';
-        successDetail = 'La canción se actualizó correctamente';
+        successSummary = this.translate.instant(
+          'songModal.form.action.success.title.create',
+        );
+        successDetail = this.translate.instant(
+          'songModal.form.action.success.message.update',
+        );
         break;
       case 'delete':
         expectedCode = 200;
-        successSummary = 'Eliminar canción';
-        successDetail = 'Canción eliminada correctamente';
+        successSummary = this.translate.instant(
+          'songModal.form.action.success.title.create',
+        );
+        successDetail = this.translate.instant(
+          'songModal.form.action.success.message.delete',
+        );
         break;
     }
 
@@ -178,8 +196,10 @@ export class SongModalComponent implements OnInit {
     } else {
       this.messageService.add({
         severity: 'warn',
-        summary: 'Advertencia',
-        detail: 'Código de respuesta: ' + responseCode,
+        summary: this.translate.instant('songModal.form.action.warning.title'),
+        detail: this.translate.instant('songModal.form.action.warning.title', {
+          responseCode,
+        }),
       });
     }
   }

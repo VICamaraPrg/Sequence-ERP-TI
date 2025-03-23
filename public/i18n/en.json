@@ -1,0 +1,82 @@
+{
+  "app": {
+    "title": "Sequence-ERP Technical Interview"
+  },
+  "header": {
+    "title": "My song collection",
+    "hamburger": {
+      "title": "Menu",
+      "nav": {
+        "songs": "Songs",
+        "albums": "Albums",
+        "companies": "Companies"
+      }
+    }
+  },
+  "songList": {
+    "currentEdit": "Currently editing: {{songTitle}}",
+    "createSong": "Create song",
+    "noSongs": "No songs found"
+  },
+  "songModal": {
+    "title": "Song details",
+    "form": {
+      "placeholder": {
+        "title": "Enter song title",
+        "artist": "Select an artist",
+        "genre": "Select 1 or more genres",
+        "company": "Select a company",
+        "country": "Select a country",
+        "releaseYear": "Select a release year",
+        "rating": "Enter a rating"
+      },
+      "label": {
+        "title": "Title",
+        "artist": "Artist",
+        "genre": "Genres",
+        "company": "Company",
+        "country": "Country",
+        "releaseYear": "Release year",
+        "rating": "Rating"
+      },
+      "error": {
+        "title": "Please enter a song title",
+        "artist": "Please select an artist",
+        "genre": "Please select at least 1 genre",
+        "company": "Please select a company",
+        "country": "Please select a country",
+        "releaseYear": "Please select a release year",
+        "rating": "Please enter a valid rating"
+      },
+      "action": {
+        "error": {
+          "create": "Failed to create song",
+          "update": "Failed to update song",
+          "delete": "Failed to delete song",
+          "unexpected": "An unexpected error occurred"
+        },
+        "success": {
+          "title": {
+            "create": "Successful creation",
+            "update": "Successful update",
+            "delete": "Successful deletion"
+          },
+          "message": {
+            "create": "The song has been created successfully",
+            "update": "The song has been updated successfully",
+            "delete": "The song has been deleted successfully"
+          }
+        },
+        "warning": {
+          "title": "Warning",
+          "responseCode": "Response code: {{responseCode}}"
+        },
+        "create": "Create",
+        "update": "Update",
+        "delete": "Delete",
+        "cancel": "Cancel",
+        "confirmDelete": "Are you sure you want to delete this song?"
+      }
+    }
+  }
+}

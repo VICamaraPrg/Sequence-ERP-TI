@@ -10,10 +10,17 @@ import { CompanyStore } from '../../stores/company.store';
 import { SongStore } from '../../stores/song.store';
 import { SafeAny } from '../../core/types/safe-any';
 import { Song } from '../../core/models/song';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-song-list',
-  imports: [SongCardComponent, CommonModule, ButtonModule, SkeletonModule],
+  imports: [
+    SongCardComponent,
+    CommonModule,
+    ButtonModule,
+    SkeletonModule,
+    TranslatePipe,
+  ],
   providers: [DialogService],
   templateUrl: './song-list.component.html',
 })
@@ -25,6 +32,8 @@ export class SongListComponent {
   readonly companyStore = inject(CompanyStore);
 
   private readonly dialogService = inject(DialogService);
+  private readonly translate = inject(TranslateService);
+
   ref: DynamicDialogRef | undefined;
 
   customEmptyArray(numberOfItems: number): SafeAny[] {
@@ -43,8 +52,10 @@ export class SongListComponent {
         '640px': '90vw',
       },
       header: songToEdit
-        ? `Editando ${this.songStore.getSongWithArtist(songToEdit)}`
-        : 'Añadir canción',
+        ? this.translate.instant('songList.currentEdit', {
+            songTitle: this.songStore.getSongWithArtist(songToEdit),
+          })
+        : this.translate.instant('songList.createSong'),
       data: songToEdit ? { songToEdit } : undefined,
     });
   }

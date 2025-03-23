@@ -1,0 +1,82 @@
+{
+  "app": {
+    "title": "Entrevista técnica de Sequence-ERP"
+  },
+  "header": {
+    "title": "Mi colección de canciones",
+    "hamburger": {
+      "title": "Menú",
+      "nav": {
+        "songs": "Canciones",
+        "albums": "Álbumes",
+        "companies": "Discográficas"
+      }
+    }
+  },
+  "songList": {
+    "currentEdit": "Actualmente editando: {{songTitle}}",
+    "createSong": "Crear canción",
+    "noSongsFound": "No se han encontrado canciones"
+  },
+  "songModal": {
+    "title": "Detalles de la canción",
+    "form": {
+      "placeholder": {
+        "title": "Introduce el título de la canción",
+        "artist": "Selecciona un artista",
+        "genre": "Selecciona 1 o más géneros",
+        "company": "Selecciona una empresa",
+        "country": "Selecciona un país",
+        "releaseYear": "Selecciona un año de lanzamiento",
+        "rating": "Introduce una calificación"
+      },
+      "label": {
+        "title": "Título",
+        "artist": "Artista",
+        "genre": "Géneros",
+        "company": "Discográfica",
+        "country": "País",
+        "releaseYear": "Año de lanzamiento",
+        "rating": "Calificación"
+      },
+      "error": {
+        "title": "Por favor, introduce un título de canción",
+        "artist": "Por favor, selecciona un artista",
+        "genre": "Por favor, selecciona al menos 1 género",
+        "company": "Por favor, selecciona una empresa",
+        "country": "Por favor, selecciona un país",
+        "releaseYear": "Por favor, selecciona un año de lanzamiento",
+        "rating": "Por favor, introduce una calificación válida"
+      },
+      "action": {
+        "error": {
+          "create": "Error al crear la canción",
+          "update": "Error al actualizar la canción",
+          "delete": "Error al eliminar la canción",
+          "unexpected": "Ocurrió un error inesperado"
+        },
+        "success": {
+          "title": {
+            "create": "Creación exitosa",
+            "update": "Actualización exitosa",
+            "delete": "Eliminación exitosa"
+          },
+          "message": {
+            "create": "La canción se ha creado con éxito",
+            "update": "La canción se ha actualizado con éxito",
+            "delete": "La canción se ha eliminado con éxito"
+          }
+        },
+        "warning": {
+          "title": "Advertencia",
+          "responseCode": "Código de respuesta: {{responseCode}}"
+        },
+        "create": "Crear",
+        "update": "Actualizar",
+        "delete": "Eliminar",
+        "cancel": "Cancelar",
+        "confirmDelete": "¿Estás seguro de que quieres eliminar esta canción?"
+      }
+    }
+  }
+}
