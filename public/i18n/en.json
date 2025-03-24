@@ -35,7 +35,8 @@
         "company": "Select a company",
         "country": "Select a country",
         "releaseYear": "Select a release year",
-        "rating": "Enter a rating"
+        "rating": "Enter a rating",
+        "duration": "Enter duration (in seconds)"
       },
       "label": {
         "title": "Title",
@@ -44,7 +45,8 @@
         "company": "Company",
         "country": "Country",
         "releaseYear": "Release year",
-        "rating": "Rating"
+        "rating": "Rating",
+        "duration": "Duration"
       },
       "error": {
         "title": "Please enter a song title",
@@ -53,7 +55,8 @@
         "company": "Please select a company",
         "country": "Please select a country",
         "releaseYear": "Please select a release year",
-        "rating": "Please enter a valid rating"
+        "rating": "Please enter a valid rating",
+        "duration": "Please enter a valid duration"
       },
       "action": {
         "error": {

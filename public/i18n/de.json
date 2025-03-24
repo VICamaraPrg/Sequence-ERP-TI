@@ -35,7 +35,8 @@
         "company": "Unternehmen auswählen",
         "country": "Land auswählen",
         "releaseYear": "Veröffentlichungsjahr auswählen",
-        "rating": "Bewertung eingeben"
+        "rating": "Bewertung eingeben",
+        "duration": "Dauer eingeben (in Sekunden)"
       },
       "label": {
         "title": "Titel",
@@ -44,7 +45,8 @@
         "company": "Unternehmen",
         "country": "Land",
         "releaseYear": "Veröffentlichungsjahr",
-        "rating": "Bewertung"
+        "rating": "Bewertung",
+        "duration": "Dauer"
       },
       "error": {
         "title": "Bitte einen Liedtitel eingeben",
@@ -53,7 +55,8 @@
         "company": "Bitte ein Unternehmen auswählen",
         "country": "Bitte ein Land auswählen",
         "releaseYear": "Bitte ein Veröffentlichungsjahr auswählen",
-        "rating": "Bitte eine gültige Bewertung eingeben"
+        "rating": "Bitte eine gültige Bewertung eingeben",
+        "duration": "Bitte eine gültige Dauer eingeben"
       },
       "action": {
         "error": {
