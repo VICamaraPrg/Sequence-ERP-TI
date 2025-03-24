@@ -34,9 +34,11 @@ export class HeaderComponent {
   $languageDialogVisible = signal<boolean>(false);
   $languages = signal<LanguageOption[]>(this.buildLanguageOptions());
   $currentLanguage = signal<string>(
-    this.$languages().find(
-      (language) => language.value === this.translate.getBrowserLang(),
-    )?.value || 'en',
+    localStorage.getItem('language') ??
+      (this.$languages().find(
+        (language) => language.value === this.translate.getBrowserLang(),
+      )?.value ||
+        'en'),
   );
 
   constructor() {
@@ -46,6 +48,7 @@ export class HeaderComponent {
   protected changeLanguage(lang: string): void {
     this.$currentLanguage.set(lang);
     this.translate.use(lang);
+    localStorage.setItem('language', lang);
 
     if (this.$languageDialogVisible()) this.$languageDialogVisible.set(false);
   }
