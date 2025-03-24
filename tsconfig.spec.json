@@ -4,10 +4,8 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/spec",
-    "module": "ES2022",
-    "esModuleInterop": true,
-    "emitDecoratorMetadata": true,
-    "types": ["jest"]
+    "types": ["jest", "node"]
   },
+  "files": ["src/tsconfig.spec.json"],
   "include": ["src/**/*.spec.ts", "src/**/*.d.ts"]
 }
