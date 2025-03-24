@@ -10,6 +10,7 @@ import { SelectModule } from 'primeng/select';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { TooltipModule } from 'primeng/tooltip';
 import { LanguageOption } from '../../core/models/language-option';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'app-header',
@@ -29,42 +30,20 @@ import { LanguageOption } from '../../core/models/language-option';
 })
 export class HeaderComponent {
   private readonly translate = inject(TranslateService);
+  readonly languageService = inject(LanguageService);
 
   $drawerVisible = signal<boolean>(false);
-  $languageDialogVisible = signal<boolean>(false);
-  $languages = signal<LanguageOption[]>(this.buildLanguageOptions());
-  $currentLanguage = signal<string>(
-    localStorage.getItem('language') ??
-      (this.$languages().find(
-        (language) => language.value === this.translate.getBrowserLang(),
-      )?.value ||
-        'en'),
+  $languages = signal<LanguageOption[]>(
+    this.languageService.getLanguageOptions(),
   );
+  $currentLanguage = signal<string>(this.languageService.getCurrentLanguage());
 
   constructor() {
-    this.translate.use(this.$currentLanguage());
+    this.languageService.setCurrentLanguage(this.$currentLanguage());
   }
 
   protected changeLanguage(lang: string): void {
     this.$currentLanguage.set(lang);
-    this.translate.use(lang);
-    localStorage.setItem('language', lang);
-
-    if (this.$languageDialogVisible()) this.$languageDialogVisible.set(false);
-  }
-
-  private buildLanguageOptions(): LanguageOption[] {
-    const codes = this.translate.getLangs();
-    const labels: Record<string, string> = {
-      es: 'Español',
-      en: 'English',
-      fr: 'Français',
-      de: 'Deutsch',
-    };
-
-    return codes.map((code) => ({
-      value: code,
-      label: labels[code] || code,
-    }));
+    this.languageService.setCurrentLanguage(lang);
   }
 }

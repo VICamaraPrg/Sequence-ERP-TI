@@ -31,7 +31,7 @@
     <div class="sm:hidden">
       <p-button
         icon="pi pi-language"
-        (click)="$languageDialogVisible.set(true)"
+        (click)="languageService.$languageDialogVisible.set(true)"
       />
     </div>
   </div>
@@ -79,7 +79,7 @@
 
 <p-dialog
   [header]="'header.selectLanguage' | translate"
-  [(visible)]="$languageDialogVisible"
+  [(visible)]="languageService.$languageDialogVisible"
   [modal]="true"
   [closable]="true"
   [style]="{ width: '300px' }"
