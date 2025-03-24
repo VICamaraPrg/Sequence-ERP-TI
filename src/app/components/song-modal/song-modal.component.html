@@ -31,6 +31,7 @@
 
       <p-iftalabel>
         <p-select
+          [loading]="songStore.loading()"
           [options]="artists"
           [placeholder]="'songModal.form.placeholder.artist' | translate"
           appendTo="body"
@@ -62,6 +63,7 @@
 
       <p-iftalabel>
         <p-multiselect
+          [loading]="songStore.loading()"
           [options]="genres"
           [placeholder]="'songModal.form.placeholder.genre' | translate"
           appendTo="body"
@@ -91,6 +93,7 @@
 
       <p-iftalabel>
         <p-select
+          [loading]="songStore.loading()"
           [options]="companies"
           [placeholder]="'songModal.form.placeholder.company' | translate"
           appendTo="body"
@@ -118,6 +121,7 @@
 
       <p-iftalabel>
         <p-select
+          [loading]="songStore.loading()"
           [options]="countries"
           [placeholder]="'songModal.form.placeholder.country' | translate"
           appendTo="body"
@@ -145,6 +149,7 @@
 
       <p-iftalabel>
         <p-datepicker
+          [disabled]="songStore.loading()"
           [placeholder]="'songModal.form.placeholder.releaseYear' | translate"
           appendTo="body"
           dateFormat="yy"
@@ -172,6 +177,7 @@
 
       <p-iftalabel>
         <p-inputnumber
+          [disabled]="songStore.loading()"
           [max]="10"
           [maxFractionDigits]="2"
           [maxlength]="4"
@@ -179,7 +185,7 @@
           [placeholder]="'songModal.form.placeholder.rating' | translate"
           formControlName="rating"
           id="rating"
-          styleClass="w-full"
+          class="w-full"
         />
         <label for="rating">{{
           'songModal.form.label.rating' | translate
@@ -196,10 +202,39 @@
           ></p-message>
         }
       </p-iftalabel>
+
+      <p-iftalabel>
+        <p-inputnumber
+          [disabled]="songStore.loading()"
+          [max]="999"
+          [maxlength]="3"
+          [min]="0"
+          [placeholder]="'songModal.form.placeholder.duration' | translate"
+          formControlName="duration"
+          id="duration"
+          class="w-full"
+        />
+        <label for="duration">{{
+          'songModal.form.label.duration' | translate
+        }}</label>
+        @if (
+          songModalState.get('duration')?.errors?.['required'] &&
+          songModalState.get('duration')?.invalid &&
+          songModalState.get('duration')?.touched
+        ) {
+          <p-message
+            [text]="'songModal.form.error.duration' | translate"
+            severity="error"
+            variant="simple"
+          ></p-message>
+        }
+      </p-iftalabel>
     </div>
+
     <div class="mt-6 flex justify-end gap-2">
       @if ($editMode()) {
         <p-button
+          [loading]="songStore.loading()"
           (click)="onDelete($event)"
           [label]="'songModal.form.action.delete' | translate"
           [outlined]="true"
@@ -208,6 +243,7 @@
         />
       }
       <p-button
+        [loading]="songStore.loading()"
         [disabled]="songModalState.invalid"
         [icon]="$editMode() ? 'pi pi-save' : 'pi pi-plus'"
         [label]="

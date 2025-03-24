@@ -11,15 +11,15 @@ export interface Song {
 }
 
 export interface SongPayload {
-  id: string | null;
+  id: string | undefined;
   title: string;
   genre: string[];
-  country: string | null;
-  company: string | null;
+  country: string | undefined;
+  company: string | undefined;
   year: number;
   duration: number;
   rating: number;
-  artist: number | null;
+  artist: number | undefined;
 }
 
 export interface SongResponse {

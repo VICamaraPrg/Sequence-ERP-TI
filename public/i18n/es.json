@@ -4,6 +4,13 @@
   },
   "header": {
     "title": "Mi colección de canciones",
+    "selectLanguage": "Seleccionar idioma",
+    "language": {
+      "en": "Inglés",
+      "es": "Español",
+      "fr": "Francés",
+      "de": "Alemán"
+    },
     "hamburger": {
       "title": "Menú",
       "nav": {
@@ -16,7 +23,7 @@
   "songList": {
     "currentEdit": "Actualmente editando: {{songTitle}}",
     "createSong": "Crear canción",
-    "noSongsFound": "No se han encontrado canciones"
+    "noSongs": "No se han encontrado canciones, ¡quizá es el momento de añadir alguna!"
   },
   "songModal": {
     "title": "Detalles de la canción",
@@ -28,7 +35,8 @@
         "company": "Selecciona una empresa",
         "country": "Selecciona un país",
         "releaseYear": "Selecciona un año de lanzamiento",
-        "rating": "Introduce una calificación"
+        "rating": "Introduce una calificación",
+        "duration": "Introduce la duración (en segundos)"
       },
       "label": {
         "title": "Título",
@@ -37,7 +45,8 @@
         "company": "Discográfica",
         "country": "País",
         "releaseYear": "Año de lanzamiento",
-        "rating": "Calificación"
+        "rating": "Calificación",
+        "duration": "Duración"
       },
       "error": {
         "title": "Por favor, introduce un título de canción",
@@ -46,7 +55,8 @@
         "company": "Por favor, selecciona una empresa",
         "country": "Por favor, selecciona un país",
         "releaseYear": "Por favor, selecciona un año de lanzamiento",
-        "rating": "Por favor, introduce una calificación válida"
+        "rating": "Por favor, introduce una calificación válida",
+        "duration": "Por favor, introduce una duración válida"
       },
       "action": {
         "error": {

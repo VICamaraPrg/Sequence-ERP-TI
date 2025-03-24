@@ -1,14 +1,16 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
 import { DividerModule } from 'primeng/divider';
 import { DrawerModule } from 'primeng/drawer';
-import { SelectChangeEvent, SelectModule } from 'primeng/select';
+import { SelectModule } from 'primeng/select';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { TooltipModule } from 'primeng/tooltip';
 import { LanguageOption } from '../../core/models/language-option';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'app-header',
@@ -20,6 +22,7 @@ import { LanguageOption } from '../../core/models/language-option';
     TooltipModule,
     SelectModule,
     SelectButtonModule,
+    DialogModule,
     FormsModule,
     TranslatePipe,
   ],
@@ -27,36 +30,20 @@ import { LanguageOption } from '../../core/models/language-option';
 })
 export class HeaderComponent {
   private readonly translate = inject(TranslateService);
+  readonly languageService = inject(LanguageService);
 
-  drawerVisible = false;
-
-  languages: LanguageOption[] = this.buildLanguageOptions();
-  currentLanguage =
-    this.languages.find(
-      (language) => language.value === this.translate.getBrowserLang(),
-    )?.value || 'en';
+  $drawerVisible = signal<boolean>(false);
+  $languages = signal<LanguageOption[]>(
+    this.languageService.getLanguageOptions(),
+  );
+  $currentLanguage = signal<string>(this.languageService.getCurrentLanguage());
 
   constructor() {
-    this.translate.use(this.currentLanguage);
+    this.languageService.setCurrentLanguage(this.$currentLanguage());
   }
 
-  protected changeLanguage(language: SelectChangeEvent): void {
-    this.translate.use(language.value);
-    this.currentLanguage = language.value;
-  }
-
-  private buildLanguageOptions(): LanguageOption[] {
-    const codes = this.translate.getLangs();
-    const labels: Record<string, string> = {
-      es: 'Español',
-      en: 'English',
-      fr: 'Français',
-      de: 'Deutsch',
-    };
-
-    return codes.map((code) => ({
-      value: code,
-      label: labels[code] || code,
-    }));
+  protected changeLanguage(lang: string): void {
+    this.$currentLanguage.set(lang);
+    this.languageService.setCurrentLanguage(lang);
   }
 }

@@ -5,7 +5,7 @@ export interface Company {
   createYear: number;
   employees: number;
   rating: number;
-  songs: number[];
+  songs: string[];
 }
 
 export interface CompanyResponse {

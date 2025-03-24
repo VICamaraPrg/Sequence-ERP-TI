@@ -88,8 +88,6 @@ export class SongModalComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    console.log(this.translate.getLangs());
-
     // Will only populate the form if the modal is for editing a song
     if (this.$editMode()) this.parseAndPopulateSongModalStateFromToEdit();
   }
@@ -106,6 +104,11 @@ export class SongModalComponent implements OnInit {
     try {
       if (this.$editMode()) {
         const responseCode = await this.songStore.updateSong(payload);
+
+        // Dumb if statement to not use non-null assertion operator (!) in the next line.
+        if (payload.id && payload.company)
+          this.companyStore.setSongToCompany(payload.id, payload.company);
+
         this.handleResponse(responseCode, 'update');
         return;
       }
@@ -239,16 +242,16 @@ export class SongModalComponent implements OnInit {
      * And it does not work with short-circuiting (title!).
      */
     const payload: SongPayload = {
-      id: this.$editMode() ? this.modalConfig.data.songToEdit.id : null,
+      id: this.$editMode() ? this.modalConfig.data.songToEdit.id : undefined,
       title: title!,
       genre: genre ? genre.map((g: GenreForSelect) => g.genre) : [],
-      country: country ? country.country : null,
-      company: company ? company.id : null,
+      country: country ? country.country : undefined,
+      company: company ? company.id : undefined,
       // PrimeNG DatePicker returns a Date object, despite the user sees a number.
       year: year instanceof Date ? year.getFullYear() : +year!,
       duration: +duration!,
       rating: +rating!,
-      artist: artist ? artist.id : null,
+      artist: artist ? artist.id : undefined,
     };
 
     return payload;

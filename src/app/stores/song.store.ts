@@ -41,7 +41,7 @@ export const SongStore = signalStore(
         patchState(store, { loading: true });
 
         const songs = await lastValueFrom(
-          songService.findAllSongs().pipe(delay(1500)),
+          songService.findAllSongs().pipe(delay(1000)),
         );
 
         patchState(store, {
@@ -88,7 +88,7 @@ export const SongStore = signalStore(
 
         // I intentionally add a delay to simulate a real-world scenario.
         const newSong = await lastValueFrom(
-          songService.saveSong(song).pipe(delay(250)),
+          songService.saveSong(song).pipe(delay(1000)),
         );
 
         patchState(store, (state) => ({
@@ -103,7 +103,7 @@ export const SongStore = signalStore(
         patchState(store, { loading: true });
 
         const updatedSong = await lastValueFrom(
-          songService.updateSong(song).pipe(delay(250)),
+          songService.updateSong(song).pipe(delay(1000)),
         );
 
         // Parsing both to string because json-server, whever it creates a new resource, it generates a random string.
@@ -121,7 +121,7 @@ export const SongStore = signalStore(
         patchState(store, { loading: true });
 
         const deletedSong = await lastValueFrom(
-          songService.deleteSong(songId).pipe(delay(250)),
+          songService.deleteSong(songId).pipe(delay(1000)),
         );
 
         patchState(store, (state) => ({
