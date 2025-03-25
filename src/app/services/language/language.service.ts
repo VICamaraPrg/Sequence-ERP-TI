@@ -1,14 +1,13 @@
-import { Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { LanguageOption } from '../core/models/language-option';
+import { LanguageOption } from '../../core/models/language-option';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LanguageService {
   $languageDialogVisible = signal<boolean>(false);
-
-  constructor(private translate: TranslateService) {}
+  private readonly translate = inject(TranslateService);
 
   getCurrentLanguage(): string {
     const storedLang = localStorage.getItem('language');

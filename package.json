@@ -15,12 +15,6 @@
     "i18n:init": "ngx-translate-extract --input ./src --output ./src/assets/i18n/template.json --key-as-default-value --replace --format json",
     "i18n:extract": "ngx-translate-extract --input ./src --output ./src/assets/i18n/{en,es,fr,de}.json --clean --format json"
   },
-  "jest": {
-    "preset": "jest-preset-angular",
-    "setupFilesAfterEnv": [
-      "<rootDir>/setup-jest.ts"
-    ]
-  },
   "engines": {
     "node": ">=20.10.0",
     "pnpm": ">=9.4.0",
@@ -69,7 +63,24 @@
     "npm-run-all": "^4.1.5",
     "prettier": "^3.5.3",
     "tailwindcss-primeui": "^0.5.1",
+    "ts-jest": "^29.3.0",
     "typescript": "~5.7.2",
     "typescript-eslint": "^8.27.0"
+  },
+  "jest": {
+    "preset": "jest-preset-angular",
+    "setupFilesAfterEnv": [
+      "<rootDir>/src/setup.jest.ts"
+    ],
+    "testPathIgnorePatterns": [
+      "<rootDir>/node_modules/",
+      "<rootDir>/dist/"
+    ],
+    "globals": {
+      "ts-jest": {
+        "tsConfig": "<rootDir>/tsconfig.spec.json",
+        "stringifyContentPathRegex": "\\.html$"
+      }
+    }
   }
 }
