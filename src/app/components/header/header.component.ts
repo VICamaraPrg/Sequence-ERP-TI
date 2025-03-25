@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { DividerModule } from 'primeng/divider';
@@ -10,7 +10,7 @@ import { SelectModule } from 'primeng/select';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { TooltipModule } from 'primeng/tooltip';
 import { LanguageOption } from '../../core/models/language-option';
-import { LanguageService } from '../../services/language.service';
+import { LanguageService } from '../../services/language/language.service';
 
 @Component({
   selector: 'app-header',
@@ -29,7 +29,6 @@ import { LanguageService } from '../../services/language.service';
   templateUrl: './header.component.html',
 })
 export class HeaderComponent {
-  private readonly translate = inject(TranslateService);
   readonly languageService = inject(LanguageService);
 
   $drawerVisible = signal<boolean>(false);
