@@ -1,0 +1,15 @@
+<p-card class="w-full h-full overflow-hidden select-none cursor-pointer">
+  <ng-template #title>{{ songWithArtist }} </ng-template>
+  <ng-template #footer>
+    <div class="flex flex-wrap gap-2">
+      @for (genre of song().genre; track $index) {
+        <p-tag rounded>
+          <div class="flex items-center px-1 text-xs">
+            <span>#</span>
+            <span>{{ genre }}</span>
+          </div>
+        </p-tag>
+      }
+    </div>
+  </ng-template>
+</p-card>

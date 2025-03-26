@@ -1,0 +1,11 @@
+{
+  "conventionalCommits.scopes": [
+    "dependencies",
+    "header",
+    "songs",
+    "company",
+    "artists",
+    "i18n",
+    "unit-integration-test"
+  ]
+}

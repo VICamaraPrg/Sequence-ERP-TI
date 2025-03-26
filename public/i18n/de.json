@@ -1,0 +1,92 @@
+{
+  "app": {
+    "title": "Sequence-ERP Technisches Interview"
+  },
+  "header": {
+    "language": {
+      "en": "Englisch",
+      "es": "Spanisch",
+      "fr": "Französisch",
+      "de": "Deutsch"
+    },
+    "hamburger": {
+      "title": "Menü",
+      "nav": {
+        "songs": "Lieder",
+        "albums": "Alben",
+        "companies": "Unternehmen"
+      }
+    },
+    "title": "Meine Songsammlung",
+    "selectLanguage": "Sprache auswählen"
+  },
+  "songList": {
+    "currentEdit": "Derzeit bearbeitet: {{songTitle}}",
+    "createSong": "Lied erstellen",
+    "noSongs": "Keine songs gefunden, vielleicht ist es an der Zeit, welche hinzuzufügen!"
+  },
+  "songModal": {
+    "title": "Lieddetails",
+    "form": {
+      "placeholder": {
+        "title": "Titel des Liedes eingeben",
+        "artist": "Künstler auswählen",
+        "genre": "1 oder mehr Genres auswählen",
+        "company": "Unternehmen auswählen",
+        "country": "Land auswählen",
+        "releaseYear": "Veröffentlichungsjahr auswählen",
+        "rating": "Bewertung eingeben",
+        "duration": "Dauer eingeben (in Sekunden)"
+      },
+      "label": {
+        "title": "Titel",
+        "artist": "Künstler",
+        "genre": "Genres",
+        "company": "Unternehmen",
+        "country": "Land",
+        "releaseYear": "Veröffentlichungsjahr",
+        "rating": "Bewertung",
+        "duration": "Dauer"
+      },
+      "error": {
+        "title": "Bitte einen Liedtitel eingeben",
+        "artist": "Bitte einen Künstler auswählen",
+        "genre": "Bitte mindestens 1 Genre auswählen",
+        "company": "Bitte ein Unternehmen auswählen",
+        "country": "Bitte ein Land auswählen",
+        "releaseYear": "Bitte ein Veröffentlichungsjahr auswählen",
+        "rating": "Bitte eine gültige Bewertung eingeben",
+        "duration": "Bitte eine gültige Dauer eingeben"
+      },
+      "action": {
+        "error": {
+          "create": "Fehler beim Erstellen des Liedes",
+          "update": "Fehler beim Aktualisieren des Liedes",
+          "delete": "Fehler beim Löschen des Liedes",
+          "unexpected": "Ein unerwarteter Fehler ist aufgetreten"
+        },
+        "success": {
+          "title": {
+            "create": "Erstellung erfolgreich",
+            "update": "Aktualisierung erfolgreich",
+            "delete": "Löschung erfolgreich"
+          },
+          "message": {
+            "create": "Das Lied wurde erfolgreich erstellt",
+            "update": "Das Lied wurde erfolgreich aktualisiert",
+            "delete": "Das Lied wurde erfolgreich gelöscht"
+          }
+        },
+        "warning": {
+          "title": "Warnung",
+          "responseCode": "Antwortcode: {{responseCode}}"
+        },
+        "create": "Erstellen",
+        "update": "Aktualisieren",
+        "delete": "Löschen",
+        "cancel": "Abbrechen",
+        "confirmDelete": "Bist du sicher, dass du dieses Lied löschen möchtest?"
+      }
+    }
+  }
+}

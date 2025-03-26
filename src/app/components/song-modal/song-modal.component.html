@@ -1,0 +1,259 @@
+<div class="p-4">
+  <form [formGroup]="songModalState" (ngSubmit)="onSubmit()">
+    <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
+      <p-iftalabel>
+        <input
+          [placeholder]="'songModal.form.placeholder.title' | translate"
+          autocomplete="off"
+          class="w-full"
+          formControlName="title"
+          id="songTitle"
+          pInputText
+        />
+        <label
+          for="songTitle"
+          class="block text-sm font-medium text-gray-700 whitespace-normal break-words"
+        >
+          {{ 'songModal.form.label.title' | translate }}
+        </label>
+        @if (
+          songModalState.get('title')?.errors?.['required'] &&
+          songModalState.get('title')?.invalid &&
+          songModalState.get('title')?.touched
+        ) {
+          <p-message
+            [text]="'songModal.form.error.title' | translate"
+            severity="error"
+            variant="simple"
+          ></p-message>
+        }
+      </p-iftalabel>
+
+      <p-iftalabel>
+        <p-select
+          [loading]="songStore.loading()"
+          [options]="artists"
+          [placeholder]="'songModal.form.placeholder.artist' | translate"
+          appendTo="body"
+          display="chip"
+          filter
+          formControlName="artist"
+          id="artist"
+          optionLabel="artist"
+          styleClass="w-full"
+        />
+        <label
+          for="artist"
+          class="block text-sm font-medium text-gray-700 whitespace-normal break-words"
+        >
+          {{ 'songModal.form.label.artist' | translate }}
+        </label>
+        @if (
+          songModalState.get('artist')?.errors?.['required'] &&
+          songModalState.get('artist')?.invalid &&
+          songModalState.get('artist')?.touched
+        ) {
+          <p-message
+            [text]="'songModal.form.error.artist' | translate"
+            severity="error"
+            variant="simple"
+          ></p-message>
+        }
+      </p-iftalabel>
+
+      <p-iftalabel>
+        <p-multiselect
+          [loading]="songStore.loading()"
+          [options]="genres"
+          [placeholder]="'songModal.form.placeholder.genre' | translate"
+          appendTo="body"
+          display="chip"
+          filter
+          formControlName="genre"
+          id="genres"
+          optionLabel="genre"
+          size="small"
+          styleClass="w-full"
+        />
+        <label for="genres">{{
+          'songModal.form.label.genre' | translate
+        }}</label>
+        @if (
+          songModalState.get('genre')?.errors?.['required'] &&
+          songModalState.get('genre')?.invalid &&
+          songModalState.get('genre')?.touched
+        ) {
+          <p-message
+            [text]="'songModal.form.error.genre' | translate"
+            severity="error"
+            variant="simple"
+          ></p-message>
+        }
+      </p-iftalabel>
+
+      <p-iftalabel>
+        <p-select
+          [loading]="songStore.loading()"
+          [options]="companies"
+          [placeholder]="'songModal.form.placeholder.company' | translate"
+          appendTo="body"
+          filter
+          formControlName="company"
+          id="company"
+          optionLabel="company"
+          styleClass="w-full"
+        />
+        <label for="company">{{
+          'songModal.form.label.company' | translate
+        }}</label>
+        @if (
+          songModalState.get('company')?.errors?.['required'] &&
+          songModalState.get('company')?.invalid &&
+          songModalState.get('company')?.touched
+        ) {
+          <p-message
+            severity="error"
+            [text]="'songModal.form.error.company' | translate"
+            variant="simple"
+          ></p-message>
+        }
+      </p-iftalabel>
+
+      <p-iftalabel>
+        <p-select
+          [loading]="songStore.loading()"
+          [options]="countries"
+          [placeholder]="'songModal.form.placeholder.country' | translate"
+          appendTo="body"
+          filter
+          formControlName="country"
+          id="country"
+          optionLabel="country"
+          styleClass="w-full"
+        />
+        <label for="country">{{
+          'songModal.form.label.country' | translate
+        }}</label>
+        @if (
+          songModalState.get('country')?.errors?.['required'] &&
+          songModalState.get('country')?.invalid &&
+          songModalState.get('country')?.touched
+        ) {
+          <p-message
+            [text]="'songModal.form.error.country' | translate"
+            severity="error"
+            variant="simple"
+          ></p-message>
+        }
+      </p-iftalabel>
+
+      <p-iftalabel>
+        <p-datepicker
+          [disabled]="songStore.loading()"
+          [placeholder]="'songModal.form.placeholder.releaseYear' | translate"
+          appendTo="body"
+          dateFormat="yy"
+          formControlName="year"
+          iconDisplay="input"
+          showIcon
+          styleClass="w-full"
+          view="year"
+        />
+        <label for="year">{{
+          'songModal.form.label.releaseYear' | translate
+        }}</label>
+        @if (
+          songModalState.get('year')?.errors?.['required'] &&
+          songModalState.get('year')?.invalid &&
+          songModalState.get('year')?.touched
+        ) {
+          <p-message
+            severity="error"
+            [text]="'songModal.form.error.releaseYear' | translate"
+            variant="simple"
+          ></p-message>
+        }
+      </p-iftalabel>
+
+      <p-iftalabel>
+        <p-inputnumber
+          [disabled]="songStore.loading()"
+          [max]="10"
+          [maxFractionDigits]="2"
+          [maxlength]="4"
+          [min]="0"
+          [placeholder]="'songModal.form.placeholder.rating' | translate"
+          formControlName="rating"
+          id="rating"
+          class="w-full"
+        />
+        <label for="rating">{{
+          'songModal.form.label.rating' | translate
+        }}</label>
+        @if (
+          songModalState.get('rating')?.errors?.['required'] &&
+          songModalState.get('rating')?.invalid &&
+          songModalState.get('rating')?.touched
+        ) {
+          <p-message
+            [text]="'songModal.form.error.rating' | translate"
+            severity="error"
+            variant="simple"
+          ></p-message>
+        }
+      </p-iftalabel>
+
+      <p-iftalabel>
+        <p-inputnumber
+          [disabled]="songStore.loading()"
+          [max]="999"
+          [maxlength]="3"
+          [min]="0"
+          [placeholder]="'songModal.form.placeholder.duration' | translate"
+          formControlName="duration"
+          id="duration"
+          class="w-full"
+        />
+        <label for="duration">{{
+          'songModal.form.label.duration' | translate
+        }}</label>
+        @if (
+          songModalState.get('duration')?.errors?.['required'] &&
+          songModalState.get('duration')?.invalid &&
+          songModalState.get('duration')?.touched
+        ) {
+          <p-message
+            [text]="'songModal.form.error.duration' | translate"
+            severity="error"
+            variant="simple"
+          ></p-message>
+        }
+      </p-iftalabel>
+    </div>
+
+    <div class="mt-6 flex justify-end gap-2">
+      @if ($editMode()) {
+        <p-button
+          [loading]="songStore.loading()"
+          (click)="onDelete($event)"
+          [label]="'songModal.form.action.delete' | translate"
+          [outlined]="true"
+          icon="pi pi-trash"
+          severity="danger"
+        />
+      }
+      <p-button
+        [loading]="songStore.loading()"
+        [disabled]="songModalState.invalid"
+        [icon]="$editMode() ? 'pi pi-save' : 'pi pi-plus'"
+        [label]="
+          $editMode()
+            ? ('songModal.form.action.update' | translate)
+            : ('songModal.form.action.create' | translate)
+        "
+        type="submit"
+      />
+    </div>
+  </form>
+</div>
+<p-confirmpopup />
