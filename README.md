@@ -4,7 +4,7 @@ This project acts as the technical interview for Sequence-ERP.
 
 The objective is to make a frontend application using Angular to manage (in my case), songs that artists have and those artists have companies.
 
-As an extra feature for translations, it will automatically detect your browser preferent language and translate everything up (Only works for :gb: :es: :de: :it:), if your prefered language is not one of them, the page will set :gb: as the language.
+As an extra feature for translations, it will automatically detect your browser preferent language and translate everything up (Only works for :gb: :fr: :es: :de:), if your prefered language is not one of them, the page will set :gb: as the language.
 
 ## Project installation
 
