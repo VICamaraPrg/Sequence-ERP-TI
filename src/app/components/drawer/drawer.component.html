@@ -1,0 +1,37 @@
+<p-drawer [visible]="drawerVisible()" (onHide)="drawerClosed.emit()">
+  <ng-template #header>
+    <div class="flex items-center gap-2">
+      <h2>{{ 'header.hamburger.title' | translate }}</h2>
+    </div>
+  </ng-template>
+  <nav class="flex flex-col gap-2">
+    <div class="flex justify-end">
+      <a
+        routerLink="/songs"
+        routerLinkActive="text-emerald-400"
+        class="flex items-center justify-between w-full max-w-xs"
+      >
+        <span>{{ 'header.hamburger.nav.songs' | translate }}</span>
+        <i class="pi pi-arrow-right"></i>
+      </a>
+    </div>
+    <div class="flex justify-end">
+      <a
+        routerLink="/artists"
+        class="flex items-center justify-between w-full max-w-xs"
+      >
+        <span>{{ 'header.hamburger.nav.albums' | translate }}</span>
+        <i class="pi pi-arrow-right"></i>
+      </a>
+    </div>
+    <div class="flex justify-end">
+      <a
+        routerLink="/companies"
+        class="flex items-center justify-between w-full max-w-xs"
+      >
+        <span>{{ 'header.hamburger.nav.companies' | translate }}</span>
+        <i class="pi pi-arrow-right"></i>
+      </a>
+    </div>
+  </nav>
+</p-drawer>

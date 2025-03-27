@@ -60,3 +60,5 @@ My implementation will use:
   - E2E: Due to lack of time, I could not do it.
   - Integration: Due to lack of time, I could not do it.
   - Unit: Jest
+
+## Images
