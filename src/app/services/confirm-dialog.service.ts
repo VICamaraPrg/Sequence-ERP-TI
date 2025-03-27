@@ -30,7 +30,6 @@ export class CustomConfirmDialogService {
         severity: 'danger',
       },
       accept: () => {
-        console.log('accept callback');
         acceptCallback();
       },
       reject: () => {
