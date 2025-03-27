@@ -19,7 +19,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
-import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { SelectModule } from 'primeng/select';
@@ -29,8 +28,8 @@ import { CompanyForSelect } from '../../core/models/company';
 import { CountryForSelect } from '../../core/models/country';
 import { GenreForSelect } from '../../core/models/genre';
 import { SongPayload } from '../../core/models/song';
-import { Crud } from '../../core/types/crud';
 import { SafeAny } from '../../core/types/safe-any';
+import { CustomConfirmDialogService } from '../../services/confirm-dialog.service';
 import { ArtistStore } from '../../stores/artist.store';
 import { CompanyStore } from '../../stores/company.store';
 import { SongStore } from '../../stores/song.store';
@@ -61,8 +60,7 @@ export class SongModalComponent implements OnInit {
 
   private readonly modalConfig = inject(DynamicDialogConfig);
   private readonly modalRef = inject(DynamicDialogRef);
-  private readonly messageService = inject(MessageService);
-  private readonly confirmationService = inject(ConfirmationService);
+  private readonly confirmDialogService = inject(CustomConfirmDialogService);
 
   private readonly translate = inject(TranslateService);
 
@@ -88,123 +86,36 @@ export class SongModalComponent implements OnInit {
   });
 
   ngOnInit(): void {
+    // set the dialogRef in the store to be able to close it from the store (And not pasing the reference on every call).
+    this.songStore.setDialogRef(this.modalRef);
+
     // Will only populate the form if the modal is for editing a song
     if (this.$editMode()) this.parseAndPopulateSongModalStateFromToEdit();
   }
 
-  /**
-   * The idea is to delegate the logic to the store.
-   * Then, the store method will return us the status code that will use to show a toast and close the modal
-   */
   protected async onSubmit(): Promise<void> {
+    // It should never trigger since we already disable the submit button.
     if (!this.songModalState.valid) return;
 
     const payload = this.mapToPayload();
 
-    try {
-      if (this.$editMode()) {
-        const responseCode = await this.songStore.updateSong(payload);
+    if (this.$editMode()) this.songStore.updateSong(payload);
+    else this.songStore.addSong(payload);
 
-        // Dumb if statement to not use non-null assertion operator (!) in the next line.
-        if (payload.id && payload.company)
-          this.companyStore.setSongToCompany(payload.id, payload.company);
-
-        this.handleResponse(responseCode, 'update');
-        return;
-      }
-      const responseCode = await this.songStore.addSong(payload);
-      this.handleResponse(responseCode, 'create');
-    } catch (error) {
-      console.error(error);
-
-      this.songStore.setLoadingState(false);
-
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: this.translate.instant(
-          'songModal.form.action.error.unexpected',
-        ),
-      });
-    }
+    // Dumb if statement to not use non-null assertion operator (!) in the next line.
+    if (payload.id && payload.company)
+      this.companyStore.setSongToCompany(payload.id, payload.company);
   }
 
-  protected async onDelete(event: Event): Promise<void> {
-    this.confirmationService.confirm({
-      target: event.target as EventTarget,
-      message: this.translate.instant('songModal.form.action.confirmDelete'),
-      icon: 'pi pi-exclamation-triangle',
-      rejectButtonProps: {
-        label: this.translate.instant('songModal.form.action.cancel'),
-        severity: 'secondary',
-        outlined: true,
+  protected onDelete(event: Event) {
+    this.confirmDialogService.confirm(
+      event.target as EventTarget,
+      this.translate.instant('songModal.form.action.confirmDelete'),
+      this.translate.instant('songModal.form.action.delete'),
+      () => {
+        this.songStore.deleteSong(this.modalConfig.data.songToEdit.id);
       },
-      acceptButtonProps: {
-        label: this.translate.instant('songModal.form.action.delete'),
-        severity: 'danger',
-      },
-      accept: async () => {
-        const responseStatus = await this.songStore.deleteSong(
-          this.modalConfig.data.songToEdit.id,
-        );
-
-        this.handleResponse(responseStatus, 'delete');
-      },
-    });
-  }
-
-  private handleResponse(responseCode: number, type: Crud): void {
-    let expectedCode = 0;
-    let successSummary = '';
-    let successDetail = '';
-
-    switch (type) {
-      case 'create':
-        expectedCode = 201;
-        successSummary = this.translate.instant(
-          'songModal.form.action.success.title.create',
-        );
-        successDetail = this.translate.instant(
-          'songModal.form.action.success.message.create',
-        );
-        break;
-      case 'update':
-        expectedCode = 200;
-        successSummary = this.translate.instant(
-          'songModal.form.action.success.title.create',
-        );
-        successDetail = this.translate.instant(
-          'songModal.form.action.success.message.update',
-        );
-        break;
-      case 'delete':
-        expectedCode = 200;
-        successSummary = this.translate.instant(
-          'songModal.form.action.success.title.create',
-        );
-        successDetail = this.translate.instant(
-          'songModal.form.action.success.message.delete',
-        );
-        break;
-    }
-
-    if (responseCode === expectedCode) {
-      this.modalRef.close();
-      this.messageService.add({
-        severity: 'success',
-        summary: successSummary,
-        detail: successDetail,
-        life: 3000,
-      });
-    } else {
-      this.messageService.add({
-        severity: 'warn',
-        summary: this.translate.instant('songModal.form.action.warning.title'),
-        detail: this.translate.instant('songModal.form.action.warning.title', {
-          responseCode,
-        }),
-      });
-    }
+    );
   }
 
   private parseAndPopulateSongModalStateFromToEdit() {
