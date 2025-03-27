@@ -14,85 +14,19 @@
 
     <div class="hidden sm:block">
       <div class="flex items-center">
-        <p-select
-          (onChange)="changeLanguage($event.value)"
-          [options]="$languages()"
-          [(ngModel)]="$currentLanguage"
-          optionLabel="label"
-          optionValue="value"
-        >
-          <ng-template #dropdownicon>
-            <i class="pi pi-language"></i>
-          </ng-template>
-        </p-select>
+        <app-language-select />
       </div>
     </div>
 
     <div class="sm:hidden">
-      <p-button
-        icon="pi pi-language"
-        (click)="languageService.$languageDialogVisible.set(true)"
-      />
+      <p-button icon="pi pi-language" (click)="openLanguageDialog()" />
     </div>
   </div>
 
-  <p-drawer [(visible)]="$drawerVisible">
-    <ng-template #header>
-      <div class="flex items-center gap-2">
-        <h2>{{ 'header.hamburger.title' | translate }}</h2>
-      </div>
-    </ng-template>
-    <nav class="flex flex-col gap-2">
-      <div class="flex justify-end">
-        <a
-          routerLink="/songs"
-          routerLinkActive="text-emerald-400"
-          class="flex items-center justify-between w-full max-w-xs"
-        >
-          <span>{{ 'header.hamburger.nav.songs' | translate }}</span>
-          <i class="pi pi-arrow-right"></i>
-        </a>
-      </div>
-      <div class="flex justify-end">
-        <a
-          routerLink="/artists"
-          class="flex items-center justify-between w-full max-w-xs"
-        >
-          <span>{{ 'header.hamburger.nav.albums' | translate }}</span>
-          <i class="pi pi-arrow-right"></i>
-        </a>
-      </div>
-      <div class="flex justify-end">
-        <a
-          routerLink="/companies"
-          class="flex items-center justify-between w-full max-w-xs"
-        >
-          <span>{{ 'header.hamburger.nav.companies' | translate }}</span>
-          <i class="pi pi-arrow-right"></i>
-        </a>
-      </div>
-    </nav>
-  </p-drawer>
+  <app-drawer
+    [drawerVisible]="$drawerVisible()"
+    (drawerClosed)="$drawerVisible.set(false)"
+  />
 </div>
 
 <p-divider type="solid" />
-
-<p-dialog
-  [header]="'header.selectLanguage' | translate"
-  [(visible)]="languageService.$languageDialogVisible"
-  [modal]="true"
-  [closable]="true"
-  [style]="{ width: '300px' }"
->
-  <div class="p-fluid">
-    <p-select
-      [(ngModel)]="$currentLanguage"
-      [options]="$languages()"
-      appendTo="body"
-      optionLabel="label"
-      optionValue="value"
-      styleClass="w-full"
-      (onChange)="changeLanguage($event.value)"
-    ></p-select>
-  </div>
-</p-dialog>

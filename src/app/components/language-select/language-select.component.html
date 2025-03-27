@@ -1,0 +1,13 @@
+<p-select
+  [(ngModel)]="$currentLanguage"
+  [options]="$languages()"
+  optionLabel="label"
+  optionValue="value"
+  styleClass="w-full"
+  appendTo="body"
+  (onChange)="changeLanguage($event.value)"
+>
+  <ng-template #dropdownicon>
+    <i class="pi pi-language"></i>
+  </ng-template>
+</p-select>
