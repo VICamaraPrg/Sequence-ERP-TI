@@ -14,9 +14,9 @@ import { Artist } from '../core/models/artist';
 import { CountryForSelect } from '../core/models/country';
 import { GenreForSelect } from '../core/models/genre';
 import { Song, SongPayload } from '../core/models/song';
+import { HandleErrorService } from '../services/handle-error.service';
 import { NotificationService } from '../services/notification.service';
 import { SongService } from '../services/song.service';
-import { handleError } from '../utils/handle-error';
 import { ArtistStore } from './artist.store';
 
 interface ISongStore {
@@ -45,6 +45,7 @@ export const SongStore = signalStore(
       artistStore = inject(ArtistStore),
       notificationService = inject(NotificationService),
       translateService = inject(TranslateService),
+      handleErrorService = inject(HandleErrorService),
     ) => ({
       async findAllSongs() {
         patchState(store, { loading: true });
@@ -103,7 +104,7 @@ export const SongStore = signalStore(
               loading: false,
             }));
           }),
-          handleError(notificationService, translateService),
+          handleErrorService.handle(),
           tap((addedSong) => {
             if (addedSong.status === 201) {
               notificationService.showSuccess(
@@ -140,7 +141,7 @@ export const SongStore = signalStore(
               loading: false,
             }));
           }),
-          handleError(notificationService, translateService),
+          handleErrorService.handle(),
           tap((deletedSong) => {
             if (deletedSong.status === 200) {
               notificationService.showSuccess(
@@ -173,7 +174,7 @@ export const SongStore = signalStore(
               loading: false,
             }));
           }),
-          handleError(notificationService, translateService),
+          handleErrorService.handle(),
           tap((deletedSong) => {
             if (deletedSong.status === 200 || deletedSong.status === 204) {
               notificationService.showSuccess(
